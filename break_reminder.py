@@ -1,3 +1,5 @@
+import time
+import threading
 from time import sleep
 import ctypes
 from typing import Any
@@ -20,7 +22,7 @@ overdue_nudge_frequency_minutes = 5
 # Debug option: Use shorter times for debugging
 debug_short_times = False
 # Debug option: Print values of important variables to console
-debug_variables = True
+debug_variables = False
 # How often to check whether user has been idle (mainly affects CPU usage)
 check_interval_seconds = 10
 # Use tkinter notifications?
@@ -39,7 +41,8 @@ if debug_short_times:
 work_duration = timedelta(minutes=work_duration_minutes)
 idle_time_threshold = timedelta(minutes=idle_time_threshold_minutes)
 overdue_nudge_frequency = timedelta(minutes=overdue_nudge_frequency_minutes)
-tkinter_window_default_timeout = int(min(overdue_nudge_frequency, work_duration).total_seconds()) - 1
+tkinter_window_default_timeout = int(
+    min(overdue_nudge_frequency, work_duration).total_seconds()) - 1
 
 # Checks
 if not enable_tkinter_notifications and not enable_plyer_notifications:
@@ -79,12 +82,6 @@ def get_idle_time() -> timedelta:
                     last_input_info.dwTime) / 1000
     return timedelta(seconds=elapsed_time)
 
-import time
-
-import tkinter as tk
-import threading
-import time
-
 
 class NotificationWindow:
     def __init__(self, title, message, timeout):
@@ -98,7 +95,8 @@ class NotificationWindow:
     def update_countdown(self):
         remaining_time = int(self.timeout - (time.time() - self.start_time))
         if remaining_time > 0:
-            self.countdown_label.config(text=f"This message will disappear in {remaining_time} seconds")
+            self.countdown_label.config(
+                text=f"This message will disappear in {remaining_time} seconds")
             self.window.after(1000, self.update_countdown)
         else:
             self.close_window()
@@ -122,16 +120,17 @@ class NotificationWindow:
         self.update_countdown()
         self.window.mainloop()
 
+
 def show_custom_notification(title, message, timeout=tkinter_window_default_timeout):
     message = title + "\n\n" + message
     title = "Break Reminder"
+
     def create_window():
         notification = NotificationWindow(title, message, timeout)
         notification.create_window()
 
     window_thread = threading.Thread(target=create_window)
     window_thread.start()
-
 
 
 def show_plyer_notification(title, message, timeout=10):
@@ -141,6 +140,7 @@ def show_plyer_notification(title, message, timeout=10):
         app_name="Break Reminder",
         timeout=timeout,
     )
+
 
 # Type hinting
 notification: Any = notification
