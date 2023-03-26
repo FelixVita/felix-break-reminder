@@ -10,10 +10,10 @@ A simple break reminder application that helps you maintain a healthy work routi
 
 ## Dependencies
 
-Python 3.7 or higher
-Plyer
-Tkinter (included in the Python standard library)
-Install the required package using the following command:
+- Python 3.x
+- plyer
+- ctypes (built-in)
+- tkinter (built-in)
 
 ## Installation
 
