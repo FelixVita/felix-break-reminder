@@ -23,11 +23,16 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run the break_reminder.py script in your Python environment:
+1. Clone the repository or download the source code.
+2. Install the required dependencies by running the following command in your terminal:
 
 ```
 python break_reminder.py
 ```
+
+3. Run the break_reminder.py script in your Python environment:
+
+The application will run in the background and send notifications according to the user-configurable parameters.
 
 ### User-Configurable Parameters
 
@@ -42,8 +47,6 @@ There are three user-configurable parameters in the source code to customize the
 By default, these parameters are set to 45, 3, and 5 minutes respectively.
 
 Tailor the break reminder experience to your needs by setting your own values for these three parameters. For your convenience, they can be found close to the top of the `break_reminder.py` file. Open the file in any editor (such as notepad or vscode) and change the values. 
-
-The application will run in the background and send notifications according to the user-configurable parameters.
 
 ## License
 
